@@ -40,8 +40,8 @@
   align-items: center;
   justify-content: center;
   gap: 15px;
-  width: 210px;
-  height: 50px;
+  width: 280px;
+  height: 80px;
   border-radius: 75px;
   margin-top: 30px;
   background: #ff4141;
@@ -59,4 +59,27 @@
 
 .hero-right img {
   height: 100%;
+}
+
+@media(max-width:1280px){
+  .hero-left{
+    padding-left: 100px;
+    padding-top: 50px;
+  }
+  .hero-left h2{
+    font-size: 20px;
+  }
+  .hero-left p{
+    font-size: 50px;
+  }
+  .hero-hand-icon img{
+    width: 40px;
+  }
+  .hero-latest-btn{
+    gap: 10px;
+    width: 200px;
+    margin-top: 20px;
+    font-size: 15px;
+    padding: 20px;
+  }
 }
