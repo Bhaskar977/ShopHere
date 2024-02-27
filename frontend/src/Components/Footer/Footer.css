@@ -61,6 +61,12 @@
     background: #c7c7c7;
 }
 
+@media(max-width:1280px){
+    .footer{
+        margin-top: 200px;
+    }
+}
+
 @media(max-width:800px){
     .footer{
         gap: 20px;
@@ -84,5 +90,11 @@
     }
     .footer-copyright{
         font-size: 13px;
+    }
+}
+
+@media(max-width:500px){
+    .footer{
+        margin-top: 250px;
     }
 }
