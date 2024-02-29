@@ -8,7 +8,8 @@ const multer = require("multer");
 const path = require("path"); // Using path we can get the access to our backend directory.
 const cors = require("cors");
 
-app.use(express.json());
+// Here the middleware -  express.json() inside the app.use to parse incoming bodies with JSON payloads.
+app.use(express.json()); // creating the instance
 app.use(cors()); // Using this our react js project will connect to express app on 4000 port
 
 // Database connection with mongoDB
@@ -23,19 +24,89 @@ app.get("/", (req, res) => {
   res.send("Express app is Running");
 });
 
+// Image Storage Engine
+
+// Multer is basically used for handling multipart/form-data which is primarily used for uploading files.
+
+const storage = multer.diskStorage({
+  // multer.diskStorage() defines how files should be stored.
+  destination: "./upload/images",
+  filename: (req, file, cb) => {
+    return cb(
+      null,
+      `${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`
+    );
+  },
+});
+
+const upload = multer({ storage: storage });
+
+// Creating upload endpoints for the images.
+
+app.use("/images", express.static("upload/images"));
+
+app.post("/upload", upload.single("product"), (req, res) => {
+  res.json({
+    success: 1,
+    image_url: `http://localhost:${port}/images/${req.file.filename}`,
+  });
+});
+
+// Schema
+
+const Product = mongoose.model("Product", {
+  id: {
+    type: Number,
+    require: true,
+  },
+  name: {
+    type: String,
+    require: true,
+  },
+  image: {
+    type: String,
+    require: true,
+  },
+  category: {
+    type: String,
+    require: true,
+  },
+  new_price: {
+    type: Number,
+    require: true,
+  },
+  old_price: {
+    type: Number,
+    require: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
+  available: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+app.post("/addproduct", async (req, res) => {
+  const product = new Product({
+    id: req.body.id,
+    name: req.body.name,
+    image: req.body.image,
+    category: req.body.category,
+    new_price: req.body.new_price,
+    old_price: req.body.old_price,
+  });
+  console.log(product);
+  //  Whenever we are saving some product in the database it'll take some time so,we are using await below.
+  await product.save()
+});
+
 app.listen(port, (error) => {
   if (!error) {
     console.log("Server running on port", port);
   } else {
     console.log("Error :" + error);
   }
-});
-
-// Image Storage Engine
-
-const storage = multer.diskStorage({
-  destination: "./upload/images",
-  filename: (req, file, cb) => {
-    return cb(null,`${file.fieldname}_${Date.now()}${path.extname(file.originalname)}`);
-  },
 });
