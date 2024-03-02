@@ -3,7 +3,7 @@ const port = 4000;
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const jwt = require("json-web-token");
+const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path"); // Using path we can get the access to our backend directory.
 const cors = require("cors");
@@ -52,7 +52,7 @@ app.post("/upload", upload.single("product"), (req, res) => {
   });
 });
 
-// Schema
+//  Product Schema
 
 const Product = mongoose.model("Product", {
   id: {
@@ -136,6 +136,62 @@ app.get("/allproduct", async (req, res) => {
   let products = await Product.find({});
   console.log("All products fetched");
   res.send(products);
+});
+
+// Schema creating for User model.
+
+const User = mongoose.model("User", {
+  name: {
+    type: String,
+  },
+  email: {
+    type: String,
+    unique: true,
+  },
+  password: {
+    type: String,
+  },
+  cartData: {
+    type: Object,
+  },
+  date: {
+    type: Date,
+    default: Date.now(),
+  },
+});
+
+// creating the endpoint for registering the user.
+
+app.post("/signup", async (req, res) => {
+  let check = await User.findOne({ email: req.body.email });
+  if (check) {
+    return res.status(400).json({
+      success: false,
+      errors: "Existing user found with same email address",
+    });
+  }
+  let cart = {};
+  for (let i = 0; i < 300; i++) {
+    const cart = 0;
+  }
+
+  const user = new User({
+    name: req.body.username,
+    email: req.body.email,
+    password: req.body.password,
+    cartData: cart,
+  });
+
+  await user.save();
+
+  const data = {
+    user: {
+      id: user.id,
+    },
+  };
+
+  const token = jwt.sign(data, "secret_shophere");
+  res.json({ success: true, token });
 });
 
 app.listen(port, (error) => {
