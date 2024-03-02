@@ -15,7 +15,7 @@ app.use(cors()); // Using this our react js project will connect to express app 
 // Database connection with mongoDB
 
 mongoose.connect(
-  "mongodb+srv://bhaskerjoshi977:Global9210@cluster0.4u66kem.mongodb.net/Shop here"
+  "mongodb+srv://bhaskerjoshi977:Global9210@cluster0.4u66kem.mongodb.net/Shophere"
 );
 
 // API creation
@@ -90,8 +90,17 @@ const Product = mongoose.model("Product", {
 });
 
 app.post("/addproduct", async (req, res) => {
+  let products = await Product.find({});
+  let id;
+  if (products.length > 0) {
+    let last_product_array = products.slice(-1);
+    let last_product = last_product_array[0];
+    id = last_product.id + 1;
+  } else {
+    id = 1;
+  }
   const product = new Product({
-    id: req.body.id,
+    id: id,
     name: req.body.name,
     image: req.body.image,
     category: req.body.category,
@@ -100,7 +109,23 @@ app.post("/addproduct", async (req, res) => {
   });
   console.log(product);
   //  Whenever we are saving some product in the database it'll take some time so,we are using await below.
-  await product.save()
+  await product.save();
+  console.log("saved");
+  res.json({
+    success: true,
+    name: req.body.name,
+  });
+});
+
+// Creating the API for deleting the product.
+
+app.post("/removeproduct", async (req, res) => {
+  await Product.findOneAndDelete({ id: req.body.id });
+  console.log("Remove");
+  res.json({
+    success: true,
+    name: req.body.name,
+  });
 });
 
 app.listen(port, (error) => {
