@@ -1,6 +1,8 @@
 import "./AddProduct.css";
 import upload_area from "../../assets/upload_area.svg";
 import { useState } from "react";
+// import { toast } from "react-toastify";
+// import "react-toastify/dist/ReactToastify.css";
 
 const initialState = {
   name: "",
@@ -25,11 +27,42 @@ const AddProduct = () => {
     });
   };
 
-  const Add_Product = () => {
-    console.log(productDetails);
-  };
+  const Add_Product = async () => {
+    let responseData;
+    let product = productDetails;
+    let formData = new FormData();
+    formData.append("product", image);
+    console.log(formData);
 
-  console.log(productDetails);
+    await fetch("http://localhost:4000/upload", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        responseData = data;
+      });
+
+    if (responseData.success) {
+      product.image = responseData.image_url;
+      await fetch("http://localhost:4000/addproduct", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          data.success ? alert("Product Added Successfully") : alert("Failed");
+          // console.log(data)
+        });
+    }
+  };
 
   return (
     <div className="add-product">
