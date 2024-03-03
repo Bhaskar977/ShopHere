@@ -172,7 +172,7 @@ app.post("/signup", async (req, res) => {
   }
   let cart = {};
   for (let i = 0; i < 300; i++) {
-    const cart = 0;
+    cart[i] = 0;
   }
 
   const user = new User({
@@ -224,6 +224,29 @@ app.post("/login", async (req, res) => {
     });
   }
 });
+
+// Creating endpoint for newCollection data.
+app.get("/newcollection", async (req, res) => {
+  let products = await Product.find({});
+  let newcollection = products.slice(1).slice(-8);
+  console.log("NewCollection fetched");
+  res.send(newcollection);
+});
+
+//creating endpoint for popular in women section
+
+app.get("/popularinwomen", async (req, res) => {
+  let products = await Product.find({ category: "women" });
+  let popular_in_women = products.slice(0, 4);
+  console.log("Popular in women fetched");
+  res.send(popular_in_women);
+});
+
+// creating endpoint for adding products in cartdata.
+
+app.post('/addtocart',async(req,res)=>{
+  console.log(req.body)
+})
 
 app.listen(port, (error) => {
   if (!error) {

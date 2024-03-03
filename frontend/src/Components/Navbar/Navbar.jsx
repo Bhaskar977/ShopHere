@@ -9,12 +9,12 @@ import nav_dropdown from "../Assets/nav_dropdown.png";
 const Navbar = () => {
   const [menu, setMenu] = useState("shop");
   const { getTotalCartItem } = useContext(ShopContext);
-  const menuRef = useRef()
+  const menuRef = useRef();
 
-  const dropdown_toggle = (e) =>{
+  const dropdown_toggle = (e) => {
     menuRef.current.classList.toggle("nav-menu-visible");
-    e.target.classList.toggle('open')
-  }
+    e.target.classList.toggle("open");
+  };
 
   return (
     <div className="navbar">
@@ -22,7 +22,12 @@ const Navbar = () => {
         <img src={logo} alt="" />
         <p>SHOP HERE</p>
       </div>
-      <img className="nav-dropdown" onClick={dropdown_toggle} src={nav_dropdown} alt="" />
+      <img
+        className="nav-dropdown"
+        onClick={dropdown_toggle}
+        src={nav_dropdown}
+        alt=""
+      />
       <ul ref={menuRef} className="nav-menu">
         <li onClick={() => setMenu("shop")}>
           <Link to={"/"} style={{ textDecoration: "none" }}>
@@ -50,9 +55,20 @@ const Navbar = () => {
         </li>
       </ul>
       <div className="nav-login-cart">
-        <Link to={"/login"} style={{ textDecoration: "none" }}>
-          <button>Login</button>
-        </Link>
+        {localStorage.getItem("authToken") ? (
+          <button
+            onClick={() => {
+              localStorage.removeItem("authToken");
+              window.location.replace("/");
+            }}
+          >
+            Logout
+          </button>
+        ) : (
+          <Link to={"/login"} style={{ textDecoration: "none" }}>
+            <button>Login</button>
+          </Link>
+        )}
         <Link to={"/cart"} style={{ textDecoration: "none" }}>
           <img src={cart_icon} alt="" />
         </Link>

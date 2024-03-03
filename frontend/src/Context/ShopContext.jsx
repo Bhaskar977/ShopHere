@@ -1,18 +1,25 @@
-import { createContext, useState } from "react";
-import all_product from "../Components/Assets/all_product";
+import { createContext, useEffect, useState } from "react";
+// import all_product from "../Components/Assets/all_product";
 
 export const ShopContext = createContext(null);
 
 const getDefaultCart = () => {
   let cart = {};
-  for (let i = 0; i <= all_product.length; i++) {
+  for (let i = 0; i <= 300 + 1; i++) {
     cart[i] = 0;
   }
   return cart;
 };
 
 const ShopContextProvider = (props) => {
+  const [all_product, setAll_Product] = useState([]);
   const [cartItem, setCartItem] = useState(getDefaultCart());
+
+  useEffect(() => {
+    fetch("http://localhost:4000/allproduct")
+      .then((response) => response.json())
+      .then((data) => setAll_Product(data));
+  }, []);
 
   // Handling the item added to the cart
   const addToCart = (itemId) => {
@@ -20,10 +27,24 @@ const ShopContextProvider = (props) => {
       const updatedCart = { ...prev };
       if (updatedCart[itemId] === undefined) {
         updatedCart[itemId] = 0; // Default to 0 if itemId is not yet in the cart
+      } else {
+        updatedCart[itemId] += 1; // Increment the quantity
       }
-      updatedCart[itemId] += 1; // Increment the quantity
       return updatedCart;
     });
+    if (localStorage.getItem("authToken")) {
+      fetch("http://localhost:4000/addtocart", {
+        method: "POST",
+        headers: {
+          Accept: "application/form-data",
+          "auth-token": `${localStorage.getItem("authToken")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ itemId: itemId }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data));
+    }
   };
 
   // Handling the item remove from the cart
