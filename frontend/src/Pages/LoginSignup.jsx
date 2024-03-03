@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./CSS/LoginSignup.css";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const initialState = {
   username: "",
@@ -26,11 +28,12 @@ const LoginSignup = () => {
       .then((data) => {
         responseData = data;
       });
-    if(responseData.success){
-      localStorage.setItem("authToken",responseData.token)
-      window.location.replace("/")
-    }else{
-      alert(responseData.errors)
+    if (responseData.success) {
+      localStorage.setItem("authToken", responseData.token);
+      toast.success("Login Successfully");
+      window.location.replace("/");
+    } else {
+      alert(responseData.errors);
     }
   };
 
@@ -49,11 +52,12 @@ const LoginSignup = () => {
       .then((data) => {
         responseData = data;
       });
-    if(responseData.success){
-      localStorage.setItem("authToken",responseData.token)
-      window.location.replace("/")
-    }else{
-      alert(responseData.errors)
+    if (responseData.success) {
+      localStorage.setItem("authToken", responseData.token);
+
+      window.location.replace("/");
+    } else {
+      alert(responseData.errors);
     }
   };
 

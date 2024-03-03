@@ -9,6 +9,8 @@ import Footer from "./Components/Footer/Footer";
 import men_banner from "./Components/Assets/banner_mens.png";
 import women_banner from "./Components/Assets/banner_women.png";
 import kid_banner from "./Components/Assets/banner_kids.png";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/login" element={<LoginSignup />}></Route>
         </Routes>
+        <ToastContainer theme="colored" style={{zIndex:1000}}/>
         <Footer />
       </BrowserRouter>
     </div>

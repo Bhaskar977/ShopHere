@@ -8,21 +8,30 @@
   background: #fff;
 }
 
-.nav-logo{
-    width: 200px;
-}
-.nav-profile{
-    width: 75px;
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-@media(max-width:800px){
-    .navbar{
-        padding: 15px 30px;
-    }
-    .nav-logo{
-        width: 150px;
-    }
-    .nav-profile{
-        width: 60px;
-    }
+.nav-logo p {
+  color: #171717;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.nav-profile {
+  width: 75px;
+}
+
+@media (max-width: 800px) {
+  .navbar {
+    padding: 15px 30px;
+  }
+  .nav-logo {
+    width: 150px;
+  }
+  .nav-profile {
+    width: 60px;
+  }
 }

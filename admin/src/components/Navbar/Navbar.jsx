@@ -1,11 +1,15 @@
 import "./Navbar.css";
-import navlogo from "../../assets/nav-logo.svg";
+// import navlogo from "../../assets/nav-logo.svg";
 import navProfile from "../../assets/nav-profile.svg";
+import logo from "../../assets/logo.png";
 
 const Navbar = () => {
   return (
     <div className="navbar">
-      <img className="nav-logo" src={navlogo} alt="" />
+      <div className="nav-logo">
+        <img src={logo} alt="" />
+        <p>SHOP HERE</p>
+      </div>
       <img className="nav-profile" src={navProfile} alt="" />
     </div>
   );
