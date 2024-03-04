@@ -16,7 +16,7 @@ const LoginSignup = () => {
   const login = async () => {
     console.log("LogIn");
     let responseData;
-    await fetch("http://localhost:4000/login", {
+    await fetch(`${process.env.REACT_APP_API_LINK}/login`, {
       method: "POST",
       headers: {
         Accept: "application/form-data",
@@ -40,7 +40,7 @@ const LoginSignup = () => {
   const signUp = async () => {
     console.log("SignUp");
     let responseData;
-    await fetch("http://localhost:4000/signup", {
+    await fetch(`${process.env.REACT_APP_API_LINK}/signup`, {
       method: "POST",
       headers: {
         Accept: "application/form-data",
