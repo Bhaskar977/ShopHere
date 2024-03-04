@@ -34,7 +34,7 @@ const AddProduct = () => {
     formData.append("product", image);
     console.log(formData);
 
-    await fetch("http://localhost:4000/upload", {
+    await fetch(`${process.env.REACT_APP_API_LINK}/upload`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -48,7 +48,7 @@ const AddProduct = () => {
 
     if (responseData.success) {
       product.image = responseData.image_url;
-      await fetch("http://localhost:4000/addproduct", {
+      await fetch(`${process.env.REACT_APP_API_LINK}/addproduct`, {
         method: "POST",
         headers: {
           Accept: "application/json",
