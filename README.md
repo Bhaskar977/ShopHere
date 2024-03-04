@@ -5,10 +5,19 @@
 
 <h1>Tech Stack Used</h1>
 <p>Javascript</p>
+<p>NPM packages</p>
 <p>React.js</p>
 <p>Node.js</p>
 <p>Express.js</p>
 <p>MongoDB</p>
+
+<h2>Features</h2>
+<p>Authentication for User</p>
+<p>Add To Cart</p>
+<p>Single product page</p>
+<p>Order(User)</p>
+<p>Admin can add the New Collection(Admin)</p>
+<p>Manage Product and Orders(Admin)</p>
 
 <h2>Homepage of ShopHere</h2>
 <img src="https://github.com/Bhaskar977/ShopHere/assets/98516131/0216452d-52de-4e1d-b4f9-d51bd0c63160"/>
