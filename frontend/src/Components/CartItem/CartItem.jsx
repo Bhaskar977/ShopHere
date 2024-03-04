@@ -24,7 +24,7 @@ const CartItem = () => {
             <div key={item.id}>
               <div className="cartitems-format-main cartitems-format">
                 <img
-                  src={item.image}
+                  src={process.env.REACT_APP_API_LINK+"/images/"+item.image}
                   alt=""
                   className="carticon-product-icon"
                 />
