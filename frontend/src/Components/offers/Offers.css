@@ -126,7 +126,7 @@
     .offers{
         height: 50vh;
         margin-top: 360px;
-        margin-bottom: 60px;
+        /* margin-bottom: 60px; */
     }
     .offers-left h1{
         font-size: 16px;
