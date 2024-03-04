@@ -32,7 +32,11 @@ const ProductDisplay = (props) => {
           />
         </div>
         <div className="productdisplay-img">
-          <img className="productdisplay-main-img" src={process.env.REACT_APP_API_LINK+"/images/"+product.image} alt="" />
+          <img
+            className="productdisplay-main-img"
+            src={process.env.REACT_APP_API_LINK + "/images/" + product.image}
+            alt=""
+          />
         </div>
       </div>
       <div className="productdisplay-right">
