@@ -125,8 +125,8 @@
 @media(max-width:500px){
     .offers{
         height: 50vh;
-        margin-top: 360px;
-        /* margin-bottom: 60px; */
+        margin-top: 200px;
+        margin-bottom: 60px;
     }
     .offers-left h1{
         font-size: 16px;
