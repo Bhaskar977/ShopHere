@@ -34,7 +34,7 @@ const AddProduct = () => {
     formData.append("product", image);
     console.log(formData);
 
-    await fetch(`${process.env.REACT_APP_API_LINK}/upload`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/upload`, {
       method: "POST",
       headers: {
         Accept: "application/json",
@@ -48,7 +48,7 @@ const AddProduct = () => {
 
     if (responseData.success) {
       product.image = responseData.image_url;
-      await fetch(`${process.env.REACT_APP_API_LINK}/addproduct`, {
+      await fetch(`${import.meta.env.VITE_API_URL}/addproduct`, {
         method: "POST",
         headers: {
           Accept: "application/json",
