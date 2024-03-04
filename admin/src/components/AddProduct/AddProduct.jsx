@@ -32,7 +32,7 @@ const AddProduct = () => {
     let product = productDetails;
     let formData = new FormData();
     formData.append("product", image);
-    console.log(formData);
+    // console.log(formData);
 
     await fetch(`${import.meta.env.VITE_API_URL}/upload`, {
       method: "POST",
@@ -48,6 +48,7 @@ const AddProduct = () => {
 
     if (responseData.success) {
       product.image = responseData.image_url;
+      console.log(product.image)
       await fetch(`${import.meta.env.VITE_API_URL}/addproduct`, {
         method: "POST",
         headers: {

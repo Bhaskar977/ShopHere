@@ -51,7 +51,7 @@ const ListProduct = () => {
               >
                 <img
                   className="listproduct-product-icon"
-                  src={product.image}
+                  src={import.meta.env.VITE_API_URL+"/"+"images/"+product.image}
                   alt=""
                 />
                 <p>{product.name}</p>
